@@ -125,4 +125,4 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
-ALLOWED_HOSTS = ["192.168.1.25", "localhost"]
+ALLOWED_HOSTS = ["192.168.1.22", "localhost"]
