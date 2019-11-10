@@ -60,8 +60,9 @@ public class MainActivity extends AppCompatActivity {
   private static final String USED_INTENT = "USED_INTENT";
   private static final String LOGIN_HINT = "login_hint";
   static String GOOGLE_CLIENT_ID = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
-  static String OWN_CLIENT_ID = "5ErKQvCR9CXaBs6NkxmXg2iX99JpjSCe4xdd0hRH";
-  static String OWN_CLIENT_SECRET = "MkTX9bRw28WhzIY7NIkr9LDq6JNKkMzfEBGSmLEhr8u2n88vRePSeXkvAZnobzuWtFAlaj1hFSfXd2jmx1DtY9eriKVFtBN67xoFAruVMAbwrGeCsddhDNlL8p0A3BDV";
+  static String OWN_CLIENT_ID = "fWyn1fNqDOUV3b3sbe910L2cwxdhl6oloL59QevL";
+  static String OWN_CLIENT_SECRET = "KdxHSG4JB1bPq6jwLblq4CQ0eYg04X7EDDkrKDdXWdJM68nA3ZeKcCmabVyfNftWxeUnJQduNRCE3T27KWICQj82aekVx7XNvYhiZOvM81SibsiWVxdmHt1ENcn70T5H";
+  static String access_token = "";
 
   MainApplication mMainApplication;
 
@@ -186,30 +187,7 @@ public class MainActivity extends AppCompatActivity {
               authState.update(tokenResponse, exception);
               persistAuthState(authState);
               Log.i(LOG_TAG, String.format("Token Response [ Access Token: %s, ID Token: %s ]", tokenResponse.accessToken, tokenResponse.idToken));
-              JSONObject jObjectType = new JSONObject();
-              try {
-                jObjectType.put("grant_type", "convert_token");
-                jObjectType.put("client_id", OWN_CLIENT_ID);
-                jObjectType.put("client_secret", OWN_CLIENT_SECRET);
-                jObjectType.put("backend", "google-oauth2");
-                jObjectType.put("token", tokenResponse.accessToken.toString());
-              } catch (JSONException e) {
-                e.printStackTrace();
-              }
-              Log.d(LOG_TAG, "Start sending");
-              new HttpRequestTask(
-                      new HttpRequest("http://192.168.1.22:8000/auth/convert-token", HttpRequest.POST, jObjectType.toString()),
-                      new HttpRequest.Handler() {
-                        @Override
-                        public void response(HttpResponse response) {
-                          if (response.code == 200) {
-                            Log.d(LOG_TAG, "Request successful!");
-                          } else {
-                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                          }
-                        }
-                      }).execute();
-
+              convertToken(tokenResponse);
             }
           }
         }
@@ -217,6 +195,44 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+  }
+
+  private void convertToken(TokenResponse tokenResponse){
+    JSONObject jObjectType = new JSONObject();
+    try {
+        jObjectType.put("grant_type", "convert_token");
+        jObjectType.put("client_id", OWN_CLIENT_ID);
+        jObjectType.put("client_secret", OWN_CLIENT_SECRET);
+        jObjectType.put("backend", "google-oauth2");
+        jObjectType.put("token", tokenResponse.accessToken.toString());
+      } catch (JSONException e) {
+        e.printStackTrace();
+      }
+      Log.d(LOG_TAG, "Start sending");
+      new HttpRequestTask(
+              new HttpRequest("http://192.168.1.22:8000/auth/convert-token", HttpRequest.POST, jObjectType.toString()),
+              new HttpRequest.Handler() {
+                @Override
+                public void response(HttpResponse response) {
+                  if (response.code == 200) {
+                    try {
+                      JSONObject json = new JSONObject(response.body);
+                      access_token = json.get("access_token").toString();
+                      change_activity();
+                    } catch (JSONException e) {
+                      e.printStackTrace();
+                    }
+                  } else {
+                    Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                  }
+                }
+              }).execute();
+  }
+
+  private void change_activity(){
+    Intent intent = new Intent(MainActivity.this, Warehouse_handle.class);
+    intent.putExtra("access_token", access_token);
+    startActivity(intent);
   }
 
   private void persistAuthState(@NonNull AuthState authState) {

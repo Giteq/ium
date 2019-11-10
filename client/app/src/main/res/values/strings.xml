@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Copyright 2016 Google Inc.
  
  Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,12 +16,14 @@
 
 <resources>
     <string name="app_name">AppAuth Codelab</string>
-    <string name="welcome_to_appauth">Welcome to AppAuth Codelab</string>
+    <string name="welcome_to_appauth">Welcome to warehouse Manager</string>
     <string name="make_api_call">Make API Call</string>
-    <string name="make_authorization_request">Make Authorization Request</string>
+    <string name="make_authorization_request">Login with Google</string>
     <string name="sign_out">Sign Out</string>
     <string name="request_complete">API Call Successful.</string>
     <string name="request_failed">API Call Failed.</string>
+    <string name="add_product">Add new product.</string>
+    <string name="list_products">List all products.</string>
 
     <!-- tools -->
     <string name="tools_given_name">Some FirstName</string>

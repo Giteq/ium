@@ -1,3 +1,7 @@
+import datetime
+
+from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -9,12 +13,3 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['man_name']
-
-
-class User(models.Model):
-    name = models.CharField(max_length=100, blank=False, default='')
-    surname = models.CharField(max_length=100, blank=False, default='')
-    job_title = models.CharField(max_length=100, blank=False, default='')
-
-    class Meta:
-        ordering = ['surname']
