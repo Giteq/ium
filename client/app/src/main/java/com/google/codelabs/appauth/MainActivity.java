@@ -15,34 +15,27 @@
 package com.google.codelabs.appauth;
 
 import android.app.PendingIntent;
-import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.RestrictionsManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.os.UserManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatTextView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
-import com.squareup.picasso.Picasso;
 
 import net.openid.appauth.AuthState;
 import net.openid.appauth.AuthorizationException;
@@ -58,10 +51,6 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 
 public class MainActivity extends AppCompatActivity {
@@ -70,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
   private static final String AUTH_STATE = "AUTH_STATE";
   private static final String USED_INTENT = "USED_INTENT";
   private static final String LOGIN_HINT = "login_hint";
+  static String GOOGLE_CLIENT_ID = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
+  static String OWN_CLIENT_ID = "5ErKQvCR9CXaBs6NkxmXg2iX99JpjSCe4xdd0hRH";
+  static String OWN_CLIENT_SECRET = "MkTX9bRw28WhzIY7NIkr9LDq6JNKkMzfEBGSmLEhr8u2n88vRePSeXkvAZnobzuWtFAlaj1hFSfXd2jmx1DtY9eriKVFtBN67xoFAruVMAbwrGeCsddhDNlL8p0A3BDV";
 
   MainApplication mMainApplication;
 
@@ -196,20 +188,24 @@ public class MainActivity extends AppCompatActivity {
               Log.i(LOG_TAG, String.format("Token Response [ Access Token: %s, ID Token: %s ]", tokenResponse.accessToken, tokenResponse.idToken));
               JSONObject jObjectType = new JSONObject();
               try {
-                jObjectType.put("id_token", tokenResponse.idToken.toString());
-                jObjectType.put("access_token", tokenResponse.accessToken.toString());
+                jObjectType.put("grant_type", "convert_token");
+                jObjectType.put("client_id", OWN_CLIENT_ID);
+                jObjectType.put("client_secret", OWN_CLIENT_SECRET);
+                jObjectType.put("backend", "google-oauth2");
+                jObjectType.put("token", tokenResponse.accessToken.toString());
               } catch (JSONException e) {
                 e.printStackTrace();
               }
+              Log.d(LOG_TAG, "Start sending");
               new HttpRequestTask(
-                      new HttpRequest("http://192.168.1.22:8000/test/", HttpRequest.POST, jObjectType.toString()),
+                      new HttpRequest("http://192.168.1.22:8000/auth/convert-token", HttpRequest.POST, jObjectType.toString()),
                       new HttpRequest.Handler() {
                         @Override
                         public void response(HttpResponse response) {
                           if (response.code == 200) {
-                            Log.d(this.getClass().toString(), "Request successful!");
+                            Log.d(LOG_TAG, "Request successful!");
                           } else {
-                            Log.e(this.getClass().toString(), "Request unsuccessful: " + response);
+                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
                           }
                         }
                       }).execute();
@@ -269,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
           Uri.parse("https://www.googleapis.com/oauth2/v4/token") /* token endpoint */
       );
       AuthorizationService authorizationService = new AuthorizationService(view.getContext());
-      String clientId = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
+      String clientId = GOOGLE_CLIENT_ID;
       Uri redirectUri = Uri.parse("com.google.codelabs.appauth:/oauth2callback");
       AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
           serviceConfiguration,
