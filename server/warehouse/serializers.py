@@ -2,8 +2,7 @@ from rest_framework import serializers
 from warehouse.models import Product
 
 
-
-class ProductSerializer(serializers.Serializer):
+class ProductSerializer(serializers.ModelSerializer):
     man_name = serializers.CharField(required=True, allow_blank=True, max_length=100)
     model_name = serializers.CharField(required=True, allow_blank=True, max_length=100)
     price = serializers.IntegerField()
@@ -19,9 +18,13 @@ class ProductSerializer(serializers.Serializer):
         """
         Update and return an existing `Snippet` instance, given the validated data.
         """
-        instance.man_name = validated_data.get('man_name', instance.title)
-        instance.model_name = validated_data.get('model_name', instance.code)
-        instance.price = validated_data.get('price', instance.linenos)
-        instance.quantity = validated_data.get('quantity', instance.linenos)
+        instance.man_name = validated_data.get('man_name', instance.man_name)
+        instance.model_name = validated_data.get('model_name', instance.model_name)
+        instance.price = validated_data.get('price', instance.price)
+        instance.quantity = validated_data.get('quantity', instance.quantity)
         instance.save()
         return instance
+
+    class Meta:
+        model = Product
+        fields = ('id', 'man_name', 'model_name', 'price', 'quantity')

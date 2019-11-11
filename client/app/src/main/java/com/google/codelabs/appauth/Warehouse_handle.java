@@ -6,26 +6,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
+
+
+/**
+ * TODO
+ *
+ * - sprawdzic czy za kazdym razem trzeba sie logowac z Google
+ * - dodac usuwanie elementow
+ * - przerobic serwer tak zeby to on liczyl aktualkny stan
+ * - wlasny oaauth provider
+ * - sprawdzic czy grupy dzialaja
+ * */
+
 
 public class Warehouse_handle extends AppCompatActivity {
 
@@ -107,7 +116,8 @@ public class Warehouse_handle extends AppCompatActivity {
                                             json_array.getJSONObject(i).get("man_name").toString(),
                                             json_array.getJSONObject(i).get("model_name").toString(),
                                             Integer.valueOf(json_array.getJSONObject(i).get("price").toString()),
-                                            Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString())
+                                            Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString()),
+                                            Integer.valueOf(json_array.getJSONObject(i).get("id").toString())
                                     ));
                                 }
                                 list_all_products();
@@ -129,7 +139,10 @@ public class Warehouse_handle extends AppCompatActivity {
 
             Product prod = (Product) parent.getAdapter().getItem(position);
             Intent intent = new Intent(Warehouse_handle.this, ModifyProduct.class);
-            intent.putExtra("Product", prod);
+            Gson gson = new Gson();
+            String json = gson.toJson(prod);
+            intent.putExtra("product", json);
+            intent.putExtra("access_token", access_token);
             startActivity(intent);
         }
     };
