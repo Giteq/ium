@@ -31,6 +31,7 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.TokenResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,6 +39,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
+import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
+import static com.google.codelabs.appauth.MainApplication.access_token;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,9 +49,8 @@ public class MainActivity extends AppCompatActivity {
   private static final String USED_INTENT = "USED_INTENT";
   private static final String LOGIN_HINT = "login_hint";
   static String GOOGLE_CLIENT_ID = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
-  static String OWN_CLIENT_ID = "fWyn1fNqDOUV3b3sbe910L2cwxdhl6oloL59QevL";
-  static String OWN_CLIENT_SECRET = "KdxHSG4JB1bPq6jwLblq4CQ0eYg04X7EDDkrKDdXWdJM68nA3ZeKcCmabVyfNftWxeUnJQduNRCE3T27KWICQj82aekVx7XNvYhiZOvM81SibsiWVxdmHt1ENcn70T5H";
-  static String access_token = "";
+  static String OWN_CLIENT_ID = "awhOBuziNux0SQPg6yjgddR5EuOIYSKqfkTcCG9v";
+  static String OWN_CLIENT_SECRET = "8S97XhcnxhpM2oIaZXPz9AyuHBXOTfDCNbw1ZZVqHCesEM1ZYRCA2Ix0LeaxvYyDlQx5Td7tNGCjqRotcXeMHij3I7evsZ1l2SdkKBSofsp5oyatAEJjlnzjpeuXEs9i";
 
   MainApplication mMainApplication;
 
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
   // views
   AppCompatButton mAuthorize;
   AppCompatButton mSignOut;
+  AppCompatButton mOwnAuthorize;
 
   // login hint
   protected String mLoginHint;
@@ -72,11 +75,13 @@ public class MainActivity extends AppCompatActivity {
     mMainApplication = (MainApplication) getApplication();
     mAuthorize = (AppCompatButton) findViewById(R.id.authorize);
     mSignOut = (AppCompatButton) findViewById(R.id.signOut);
+    mOwnAuthorize = (AppCompatButton) findViewById(R.id.own_authorize);
 
     enablePostAuthorizationFlows();
 
     // wire click listeners
     mAuthorize.setOnClickListener(new AuthorizeListener(this));
+    mOwnAuthorize.setOnClickListener(new OwnAuthorizeListener(this));
 
     // Retrieve app restrictions and take appropriate action
     getAppRestrictions();
@@ -293,6 +298,52 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
+  /**
+   * Kicks off the authorization flow.
+   */
+  public static class OwnAuthorizeListener implements Button.OnClickListener {
+
+    private final MainActivity mMainActivity;
+
+    public OwnAuthorizeListener(@NonNull MainActivity mainActivity) {
+      mMainActivity = mainActivity;
+    }
+  //http://localhost:8000/authorize?client_id=651462&redirect_uri=http://example.org/&response_type=code&scope=openid email profile&state=123123
+    @Override
+    public void onClick(View view) {
+      AuthorizationServiceConfiguration serviceConfiguration = new AuthorizationServiceConfiguration(
+              Uri.parse("http://192.168.1.22:8000/authorize") /* auth endpoint */,
+              Uri.parse("http://192.168.1.22:8000/token") /* token endpoint */
+      );
+      AuthorizationService authorizationService = new AuthorizationService(view.getContext());
+      String clientId = "138039";
+      Uri redirectUri = Uri.parse("com.google.codelabs.appauth:/oauth2callback");
+      AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
+              serviceConfiguration,
+              clientId,
+              AuthorizationRequest.RESPONSE_TYPE_CODE,
+              redirectUri
+      );
+      builder.setScopes("profile");
+
+      Log.i(LOG_TAG, "Wyslal");
+
+      if(mMainActivity.getLoginHint() != null){
+        Map loginHintMap = new HashMap<String, String>();
+        loginHintMap.put(LOGIN_HINT,mMainActivity.getLoginHint());
+        builder.setAdditionalParameters(loginHintMap);
+
+        Log.i(LOG_TAG, String.format("login_hint: %s", mMainActivity.getLoginHint()));
+      }
+
+      AuthorizationRequest request = builder.build();
+      String action = "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE";
+      Intent postAuthorizationIntent = new Intent(action);
+      PendingIntent pendingIntent = PendingIntent.getActivity(view.getContext(), request.hashCode(), postAuthorizationIntent, 0);
+      authorizationService.performAuthorizationRequest(request, pendingIntent);
+    }
+  }
+
   public static class SignOutListener implements Button.OnClickListener {
 
     private final MainActivity mMainActivity;
@@ -306,6 +357,17 @@ public class MainActivity extends AppCompatActivity {
       mMainActivity.mAuthState = null;
       mMainActivity.clearAuthState();
       mMainActivity.enablePostAuthorizationFlows();
+      new HttpRequestTask(
+              new HttpRequest(SERVER_ADDR + "logout/", HttpRequest.GET),
+              new HttpRequest.Handler() {
+                @Override
+                public void response(HttpResponse response) {
+                  if (response.code == 200) {
+                  } else {
+                    Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                  }
+                }
+              }).execute();
     }
   }
 

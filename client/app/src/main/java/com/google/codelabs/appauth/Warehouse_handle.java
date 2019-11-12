@@ -2,7 +2,9 @@ package com.google.codelabs.appauth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +12,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
@@ -20,19 +31,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
+import static com.google.codelabs.appauth.MainApplication.access_token;
 
 
 /**
  * TODO
  *
  * - sprawdzic czy za kazdym razem trzeba sie logowac z Google
- * - dodac usuwanie elementow
- * - przerobic serwer tak zeby to on liczyl aktualkny stan
+ * + dodac usuwanie elementow
+ * + przerobic serwer tak zeby to on liczyl aktualkny stan
  * - wlasny oaauth provider
- * - sprawdzic czy grupy dzialaja
+ * + sprawdzic czy grupy dzialaja
  * */
 
 
@@ -46,15 +60,15 @@ public class Warehouse_handle extends AppCompatActivity {
     EditText man_name, model_name, quantity, price;
 
     ArrayList<Product> listViewValues;
-    String access_token;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warehouse_handle);
 
+
+
         Bundle bundle = getIntent().getExtras();
-        access_token = bundle.getString("access_token");
 
         mListProd = (Button) findViewById(R.id.list_all_prod);
         submit = (Button) findViewById(R.id.submit);
@@ -91,47 +105,126 @@ public class Warehouse_handle extends AppCompatActivity {
         changeListVisibility(View.INVISIBLE);
     }
 
-    public void list_all_products(){
-        // Initialise a listview adapter with the project titles and use it
-        // in the listview to show the list of project.
+    private void list_prod(){
         ProductAdapter adapter = new ProductAdapter(this, listViewValues);
         mListView.setAdapter(adapter);
-
     }
 
-    private void get_all_products(){
+    private void get_all_products() {
         listViewValues = new ArrayList<>();
-        new HttpRequestTask(
-                new HttpRequest(SERVER_ADDR + "products/", HttpRequest.GET),
-                new HttpRequest.Handler() {
-                    @Override
-                    public void response(HttpResponse response) {
-                        if (response.code == 200) {
-                            try {
-                                JSONArray json_array = new JSONArray(response.body);
-                                Log.d(LOG_TAG, json_array.toString());
-                                // Add the project titles to display in a list for the listview adapter.
-                                for (int i = 0; i < json_array.length(); i++) {
-                                    listViewValues.add(new Product(
-                                            json_array.getJSONObject(i).get("man_name").toString(),
-                                            json_array.getJSONObject(i).get("model_name").toString(),
-                                            Integer.valueOf(json_array.getJSONObject(i).get("price").toString()),
-                                            Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString()),
-                                            Integer.valueOf(json_array.getJSONObject(i).get("id").toString())
-                                    ));
-                                }
-                                list_all_products();
 
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        } else {
-                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+        StringRequest request = new StringRequest(Request.Method.GET, SERVER_ADDR + "products/", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                if (!response.equals(null)) {
+                    JSONArray json_array = null;
+                    try {
+                        json_array = new JSONArray(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    for (int i = 0; i < json_array.length(); i++) {
+                        try {
+                            listViewValues.add(new Product(
+                                    json_array.getJSONObject(i).get("man_name").toString(),
+                                    json_array.getJSONObject(i).get("model_name").toString(),
+                                    Integer.valueOf(json_array.getJSONObject(i).get("price").toString()),
+                                    Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString()),
+                                    Integer.valueOf(json_array.getJSONObject(i).get("id").toString())
+                            ));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
-                }).execute();
+                    list_prod();
+                } else {
+                    Log.e("Your Array Response", "Data Null");
+                }
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("error is ", "" + error);
+            }
+        }) {
+
+            //This is for Headers If You Needed
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Content-Type", "application/json; charset=UTF-8");
+                params.put("Authorization", "Bearer "+ access_token);
+                return params;
+            }
+        };
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        queue.add(request);
+
+//        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//                @Override
+//                public void onResponse(String s) {
+//                    ///handle response from service
+//                }, new ErrorResponse() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) {
+//                        //handle error response
+//                    }
+//                }) {
+//                    @Override
+//                    protected Map<String, String> getParams() throws AuthFailureError {
+//                        Map<String, String> params = new HashMap<String, String>();
+//                        //add params <key,value>
+//                        return params;
+//                    }
+//
+//                    @Override
+//                    public Map<String, String> getHeaders() throws AuthFailureError {
+//                        Map<String,String> headers = Constants.getHeaders(context);
+//                        // add headers <key,value>
+//                        String credentials = USERNAME+":"+PASSWORD;
+//                        String auth = "Basic "
+//                                + Base64.encodeToString(credentials.getBytes(),
+//                                Base64.NO_WRAP);
+//                        headers.put("Authorization", auth);
+//                        return headers;
+//                    }
+//                };
+//            mQueue.add(request);
+//        list_all_products();
+//        new HttpRequestTask(
+//                new HttpRequest(SERVER_ADDR + "products/", HttpRequest.GET, "Bearer " + access_token),
+//                new HttpRequest.Handler() {
+//                    @Override
+//                    public void response(HttpResponse response) {
+//                        if (response.code == 200) {
+//                            try {
+//                                JSONArray json_array = new JSONArray(response.body);
+//                                Log.d(LOG_TAG, json_array.toString());
+//                                // Add the project titles to display in a list for the listview adapter.
+//                                for (int i = 0; i < json_array.length(); i++) {
+//                                    listViewValues.add(new Product(
+//                                            json_array.getJSONObject(i).get("man_name").toString(),
+//                                            json_array.getJSONObject(i).get("model_name").toString(),
+//                                            Integer.valueOf(json_array.getJSONObject(i).get("price").toString()),
+//                                            Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString()),
+//                                            Integer.valueOf(json_array.getJSONObject(i).get("id").toString())
+//                                    ));
+//                                }
+//                                list_all_products();
+//
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        } else {
+//                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+//                        }
+//                    }
+//                }).execute();
 
     }
+
 
     private AdapterView.OnItemClickListener listPairedClickItem = new AdapterView.OnItemClickListener() {
         @Override
@@ -194,5 +287,6 @@ public class Warehouse_handle extends AppCompatActivity {
     }
 
 }
+
 
 

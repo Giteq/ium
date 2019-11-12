@@ -43,6 +43,14 @@
         android:text="@string/make_authorization_request"/>
 
     <android.support.v7.widget.AppCompatButton
+        android:id="@+id/own_authorize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/action_margin"
+        android:layout_marginRight="@dimen/action_margin"
+        android:text="Login with own provider"/>
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/signOut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

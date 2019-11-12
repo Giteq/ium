@@ -20,6 +20,7 @@ public class MainApplication extends Application {
 
   public static final String LOG_TAG = "AppAuthSample";
   public static final String SERVER_ADDR = "http://192.168.1.22:8000/";
+  public static String access_token = "";
 
   @Override
   public void onCreate() {

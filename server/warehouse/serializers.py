@@ -21,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
         instance.man_name = validated_data.get('man_name', instance.man_name)
         instance.model_name = validated_data.get('model_name', instance.model_name)
         instance.price = validated_data.get('price', instance.price)
-        instance.quantity = validated_data.get('quantity', instance.quantity)
+        instance.quantity += validated_data.get('quantity', instance.quantity)
         instance.save()
         return instance
 

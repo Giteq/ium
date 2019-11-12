@@ -20,6 +20,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE" />
 
