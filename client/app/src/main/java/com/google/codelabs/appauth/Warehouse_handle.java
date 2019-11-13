@@ -39,8 +39,8 @@ import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
 
 
-/**
- * TODO
+/** * TODO
+
  *
  * - sprawdzic czy za kazdym razem trzeba sie logowac z Google
  * + dodac usuwanie elementow
@@ -158,71 +158,9 @@ public class Warehouse_handle extends AppCompatActivity {
                 return params;
             }
         };
+        Log.d("MyOwnToken", access_token);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         queue.add(request);
-
-//        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//                @Override
-//                public void onResponse(String s) {
-//                    ///handle response from service
-//                }, new ErrorResponse() {
-//                    @Override
-//                    public void onErrorResponse(VolleyError volleyError) {
-//                        //handle error response
-//                    }
-//                }) {
-//                    @Override
-//                    protected Map<String, String> getParams() throws AuthFailureError {
-//                        Map<String, String> params = new HashMap<String, String>();
-//                        //add params <key,value>
-//                        return params;
-//                    }
-//
-//                    @Override
-//                    public Map<String, String> getHeaders() throws AuthFailureError {
-//                        Map<String,String> headers = Constants.getHeaders(context);
-//                        // add headers <key,value>
-//                        String credentials = USERNAME+":"+PASSWORD;
-//                        String auth = "Basic "
-//                                + Base64.encodeToString(credentials.getBytes(),
-//                                Base64.NO_WRAP);
-//                        headers.put("Authorization", auth);
-//                        return headers;
-//                    }
-//                };
-//            mQueue.add(request);
-//        list_all_products();
-//        new HttpRequestTask(
-//                new HttpRequest(SERVER_ADDR + "products/", HttpRequest.GET, "Bearer " + access_token),
-//                new HttpRequest.Handler() {
-//                    @Override
-//                    public void response(HttpResponse response) {
-//                        if (response.code == 200) {
-//                            try {
-//                                JSONArray json_array = new JSONArray(response.body);
-//                                Log.d(LOG_TAG, json_array.toString());
-//                                // Add the project titles to display in a list for the listview adapter.
-//                                for (int i = 0; i < json_array.length(); i++) {
-//                                    listViewValues.add(new Product(
-//                                            json_array.getJSONObject(i).get("man_name").toString(),
-//                                            json_array.getJSONObject(i).get("model_name").toString(),
-//                                            Integer.valueOf(json_array.getJSONObject(i).get("price").toString()),
-//                                            Integer.valueOf(json_array.getJSONObject(i).get("quantity").toString()),
-//                                            Integer.valueOf(json_array.getJSONObject(i).get("id").toString())
-//                                    ));
-//                                }
-//                                list_all_products();
-//
-//                            } catch (JSONException e) {
-//                                e.printStackTrace();
-//                            }
-//                        } else {
-//                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
-//                        }
-//                    }
-//                }).execute();
-
     }
 
 

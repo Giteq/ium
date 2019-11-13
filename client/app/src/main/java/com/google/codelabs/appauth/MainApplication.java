@@ -19,7 +19,8 @@ import android.app.Application;
 public class MainApplication extends Application {
 
   public static final String LOG_TAG = "AppAuthSample";
-  public static final String SERVER_ADDR = "http://192.168.1.22:8000/";
+  public static final String SERVER_ADDR = "http://192.168.1.11:8000/";
+  public static final String OWN_OAUTH_ADDR = "http://192.168.1.11:8001/";
   public static String access_token = "";
 
   @Override

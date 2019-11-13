@@ -163,4 +163,4 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-ALLOWED_HOSTS = ["192.168.1.22", "localhost"]
+ALLOWED_HOSTS = ["192.168.1.11", "localhost"]

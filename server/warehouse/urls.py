@@ -10,7 +10,8 @@ urlpatterns = [
     path('products/', views.ProductsList.as_view()),
     path('rest-auth/', include('rest_auth.urls')),
     path('products/<int:pk>/', views.ProductsDetail.as_view()),
-    path('logout/', LogoutView.as_view())
+    path('logout/', LogoutView.as_view()),
+    path('own_auth/', views.AuthView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -3,8 +3,8 @@
 import os
 import sys
 
-# RSA key 2137ae199618b929591a2b1bdbd18694
 
+# RSA key 2137ae199618b929591a2b1bdbd18694
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'server.settings')
     try:

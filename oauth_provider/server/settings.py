@@ -123,4 +123,6 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = '/accounts/login/'
 
-ALLOWED_HOSTS = ["192.168.1.22", "localhost"]
+ALLOWED_HOSTS = ["192.168.1.11", "localhost"]
+
+
