@@ -19,9 +19,11 @@ import android.app.Application;
 public class MainApplication extends Application {
 
   public static final String LOG_TAG = "AppAuthSample";
-  public static final String SERVER_ADDR = "http://192.168.1.11:8000/";
-  public static final String OWN_OAUTH_ADDR = "http://192.168.1.11:8001/";
+  public static final String SERVER_ADDR = "http://192.168.1.11:8001/";
+  public static final String OWN_OAUTH_ADDR = "http://192.168.1.11:8000/";
   public static String access_token = "";
+  public static String OWN_CLIENT_ID = "O9uCHE6i96mHXnC7M8ehbRymGyJPTkgKCvhQPTAz";
+  public static String OWN_CLIENT_SECRET = "0amdvcIRcvj8vl0khrPxC5eG80XPvnxNYUHZ8CR2qid4hAxDsyuAHTwGsj0AhPnCb2HUAcuoslziAyrwqG20PdM32oCkowGSOWjBrIPa6W7somA1Uld4vkX13jDqFI4C";
 
   @Override
   public void onCreate() {

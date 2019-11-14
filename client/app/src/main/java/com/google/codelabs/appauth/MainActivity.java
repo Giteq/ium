@@ -46,8 +46,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
+import static com.google.codelabs.appauth.MainApplication.OWN_CLIENT_ID;
+import static com.google.codelabs.appauth.MainApplication.OWN_CLIENT_SECRET;
 import static com.google.codelabs.appauth.MainApplication.OWN_OAUTH_ADDR;
-import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
 
 public class MainActivity extends AppCompatActivity {
@@ -57,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
   private static final String USED_INTENT = "USED_INTENT";
   private static final String LOGIN_HINT = "login_hint";
   static String GOOGLE_CLIENT_ID = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
-  static String OWN_CLIENT_ID = "awhOBuziNux0SQPg6yjgddR5EuOIYSKqfkTcCG9v";
-  static String OWN_CLIENT_SECRET = "8S97XhcnxhpM2oIaZXPz9AyuHBXOTfDCNbw1ZZVqHCesEM1ZYRCA2Ix0LeaxvYyDlQx5Td7tNGCjqRotcXeMHij3I7evsZ1l2SdkKBSofsp5oyatAEJjlnzjpeuXEs9i";
 
   MainApplication mMainApplication;
 
@@ -69,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
   AppCompatButton mAuthorize;
   AppCompatButton mSignOut;
   AppCompatButton mOwnAuthorize;
+  AppCompatButton mRegister;
 
   // login hint
   protected String mLoginHint;
@@ -84,12 +84,14 @@ public class MainActivity extends AppCompatActivity {
     mAuthorize = (AppCompatButton) findViewById(R.id.authorize);
     mSignOut = (AppCompatButton) findViewById(R.id.signOut);
     mOwnAuthorize = (AppCompatButton) findViewById(R.id.own_authorize);
+    mRegister = (AppCompatButton) findViewById(R.id.register);
 
     enablePostAuthorizationFlows();
 
     // wire click listeners
     mAuthorize.setOnClickListener(new AuthorizeListener(this));
     mOwnAuthorize.setOnClickListener(new OwnAuthorizeListener(this));
+    mRegister.setOnClickListener(new RegisterListener(this));
 
     // Retrieve app restrictions and take appropriate action
     getAppRestrictions();
@@ -132,9 +134,6 @@ public class MainActivity extends AppCompatActivity {
             handleAuthorizationResponse(intent);
             intent.putExtra(USED_INTENT, true);
           }
-          break;
-        case "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE_OWN":
-            handleAuthorizationResponseOwn(intent);
           break;
         default:
         break;
@@ -199,61 +198,6 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  private void handleAuthorizationResponseOwn(@NonNull Intent intent) {
-    final AuthorizationResponse response = AuthorizationResponse.fromIntent(intent);
-    AuthorizationException error = AuthorizationException.fromIntent(intent);
-    final AuthState authState = new AuthState(response, error);
-    Log.e(LOG_TAG, response.authorizationCode);
-    if (response != null) {
-      StringRequest request = new StringRequest(Request.Method.POST, OWN_OAUTH_ADDR + "token", new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-          Log.d(LOG_TAG, response);
-          try {
-            JSONObject jsonObject = new JSONObject(response);
-            convertToken(jsonObject.get("access_token").toString());
-          }catch (JSONException err){
-            Log.d("Error", err.toString());
-          }
-        }
-
-      }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-          Log.e(LOG_TAG, "" + error);
-        }
-      }) {
-
-        //This is for Headers If You Needed
-        @Override
-        public Map<String, String> getHeaders() {
-          Map<String, String> params = new HashMap<String, String>();
-          params.put("Content-Type", "application/x-www-form-urlencoded");
-          params.put("Cache-Control", "no-cache");
-
-          return params;
-        }
-
-        @Override
-        protected Map<String, String> getParams() {
-          // Posting parameters to getData url
-          Map<String, String> params = new HashMap<String, String>();
-          params.put("client_id", "138039");
-          params.put("client_secret", "99e714a8abfd4134bb1289f7dee30551bea51859298295503a238a47");
-          params.put("code", response.authorizationCode);
-          params.put("redirect_uri", "com.google.codelabs.appauth:/oauth2callback");
-          params.put("grant_type", "authorization_code");
-          return params;
-        }
-
-      };
-      RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-      queue.add(request);
-
-    }
-  }
-
-
   private void convertToken(TokenResponse tokenResponse){
     JSONObject jObjectType = new JSONObject();
     try {
@@ -267,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
       }
       Log.d(LOG_TAG, "Start sending");
       new HttpRequestTask(
-              new HttpRequest(SERVER_ADDR + "auth/convert-token", HttpRequest.POST, jObjectType.toString()),
+              new HttpRequest(OWN_OAUTH_ADDR + "auth/convert-token", HttpRequest.POST, jObjectType.toString()),
               new HttpRequest.Handler() {
                 @Override
                 public void response(HttpResponse response) {
@@ -284,39 +228,6 @@ public class MainActivity extends AppCompatActivity {
                   }
                 }
               }).execute();
-  }
-
-  private void convertToken(final String accessToken){
-    JSONObject jObjectType = new JSONObject();
-    try {
-      jObjectType.put("grant_type", "convert_token");
-      jObjectType.put("client_id", OWN_CLIENT_ID);
-      jObjectType.put("client_secret", OWN_CLIENT_SECRET);
-      jObjectType.put("backend", "own_backend");
-      jObjectType.put("token", accessToken);
-    } catch (JSONException e) {
-      e.printStackTrace();
-    }
-    Log.d(LOG_TAG, "Start sending");
-    new HttpRequestTask(
-            new HttpRequest(SERVER_ADDR + "own_auth/", HttpRequest.POST, jObjectType.toString()),
-            new HttpRequest.Handler() {
-              @Override
-              public void response(HttpResponse response) {
-                if (response.code == 200) {
-                  try {
-                    JSONObject json = new JSONObject(response.body);
-                    access_token = json.get("access_token").toString();
-
-                    change_activity();
-                  } catch (JSONException e) {
-                    e.printStackTrace();
-                  }
-                } else {
-                  Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                }
-              }
-            }).execute();
   }
 
   private void change_activity(){
@@ -400,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
   /**
    * Kicks off the authorization flow.
    */
-  public static class OwnAuthorizeListener implements Button.OnClickListener {
+  public class OwnAuthorizeListener implements Button.OnClickListener {
 
     private final MainActivity mMainActivity;
 
@@ -410,36 +321,29 @@ public class MainActivity extends AppCompatActivity {
   //http://localhost:8000/authorize?client_id=651462&redirect_uri=http://example.org/&response_type=code&scope=openid email profile&state=123123
     @Override
     public void onClick(View view) {
-
-    AuthorizationServiceConfiguration serviceConfiguration = new AuthorizationServiceConfiguration(
-            Uri.parse(OWN_OAUTH_ADDR + "authorize") /* auth endpoint */,
-            Uri.parse(OWN_OAUTH_ADDR + "token/") /* token endpoint */
-    );
-    AuthorizationService authorizationService = new AuthorizationService(view.getContext());
-    Uri redirectUri = Uri.parse("com.google.codelabs.appauth:/oauth2callback");
-    AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(
-            serviceConfiguration,
-            "138039",
-            AuthorizationRequest.RESPONSE_TYPE_CODE,
-            redirectUri
-    );
-      builder.setScopes("openid", "profile");
-
-      if(mMainActivity.getLoginHint() != null){
-      Map loginHintMap = new HashMap<String, String>();
-      loginHintMap.put(LOGIN_HINT,mMainActivity.getLoginHint());
-      builder.setAdditionalParameters(loginHintMap);
-
-      Log.i(LOG_TAG, String.format("login_hint: %s", mMainActivity.getLoginHint()));
-    }
-
-    AuthorizationRequest request = builder.build();
-    String action = "com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE_OWN";
-    Intent postAuthorizationIntent = new Intent(action);
-    PendingIntent pendingIntent = PendingIntent.getActivity(view.getContext(), request.hashCode(), postAuthorizationIntent, 0);
-      Log.i(LOG_TAG, postAuthorizationIntent.toString());
-    authorizationService.performAuthorizationRequest(request, pendingIntent);
+      Intent intent = new Intent(MainActivity.this, Login.class);
+      intent.putExtra("access_token", access_token);
+      startActivity(intent);
   }
+
+  }
+
+  /**
+   * Kicks off the authorization flow.
+   */
+  public class RegisterListener implements Button.OnClickListener {
+
+    private final MainActivity mMainActivity;
+
+    public RegisterListener(@NonNull MainActivity mainActivity) {
+      mMainActivity = mainActivity;
+    }
+    @Override
+    public void onClick(View view) {
+      Intent intent = new Intent(MainActivity.this, Register.class);
+      intent.putExtra("access_token", access_token);
+      startActivity(intent);
+    }
 
   }
 
@@ -457,7 +361,7 @@ public class MainActivity extends AppCompatActivity {
       mMainActivity.clearAuthState();
       mMainActivity.enablePostAuthorizationFlows();
       new HttpRequestTask(
-              new HttpRequest(SERVER_ADDR + "logout/", HttpRequest.GET),
+              new HttpRequest(OWN_OAUTH_ADDR + "logout/", HttpRequest.GET),
               new HttpRequest.Handler() {
                 @Override
                 public void response(HttpResponse response) {

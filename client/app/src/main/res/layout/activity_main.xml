@@ -59,5 +59,13 @@
         android:text="@string/sign_out"
         android:visibility="gone"/>
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/action_margin"
+        android:layout_marginRight="@dimen/action_margin"
+        android:text="Register" />
+
 
 </LinearLayout>

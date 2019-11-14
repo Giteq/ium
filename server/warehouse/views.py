@@ -14,9 +14,8 @@ from warehouse.serializers import ProductSerializer
 class IsManagerOrEmployee(permissions.BasePermission):
 
     def has_permission(self, request, view):
-        print(request.user.groups.all())
-        manager_group = Group.objects.get(name="Managers")
-        employee_group = Group.objects.get(name="Workers")
+        manager_group = Group.objects.get(name="warehouse managers")
+        employee_group = Group.objects.get(name="warehouse employees")
         if manager_group in request.user.groups.all() or employee_group in request.user.groups.all():
             # DELETE request allowed only for group "warehouse manager"
             if request.method == "DELETE" and not manager_group in request.user.groups.all():

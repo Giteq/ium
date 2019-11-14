@@ -11,7 +11,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ModifyProduct"></activity>
+        <activity android:name=".Register"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".ModifyProduct" />
         <activity android:name=".AddProd" />
         <activity android:name=".Warehouse_handle" />
         <activity android:name=".MainActivity">
@@ -20,7 +22,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="com.google.codelabs.appauth.HANDLE_AUTHORIZATION_RESPONSE" />
 
@@ -38,9 +39,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="http"
                     android:host="www.example.iumclientapp.com"
-                    android:pathPattern="/myauth" />
+                    android:pathPattern="/myauth"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
         <activity android:name="net.openid.appauth.RedirectUriReceiverActivity">
