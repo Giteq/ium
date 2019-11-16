@@ -87,7 +87,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="220dp"
+            android:layout_marginTop="230dp"
             android:gravity="center"
             android:text="Quantity" />
 
@@ -95,7 +95,7 @@
             android:id="@+id/modifyQuantity"
             android:layout_width="159dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="120dp"
             android:layout_marginTop="220dp"
             android:focusable="false"
             android:gravity="center"
@@ -107,8 +107,8 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="272dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginStart="285dp"
+            android:layout_marginTop="220dp"
             android:text="+" />
 
         <Button
@@ -117,8 +117,8 @@
             android:layout_height="50dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="80dp"
-            android:layout_marginTop="280dp"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="220dp"
             android:text="-" />
 
         <Button
@@ -139,6 +139,14 @@
             android:layout_marginTop="410dp"
             android:text="Remove"/>
 
+        <TextView
+            android:id="@+id/wrong_fields"
+            android:layout_width="400dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="500dp"
+            android:gravity="center" />
 
     </RelativeLayout>
 

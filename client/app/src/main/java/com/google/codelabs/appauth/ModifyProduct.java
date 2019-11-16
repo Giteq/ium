@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
@@ -22,6 +23,7 @@ public class ModifyProduct extends AppCompatActivity {
     EditText man_name, model_name, quantity, price;
     Button mModify, mPlus, mMinus, mRemove;
     Product product;
+    TextView wrong_fields;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class ModifyProduct extends AppCompatActivity {
         mRemove = (Button) findViewById(R.id.modifyRemove);
         mPlus = (Button) findViewById(R.id.modifyPlus);
         mMinus = (Button) findViewById(R.id.modifyMinus);
+        wrong_fields = (TextView) findViewById(R.id.wrong_fields);
 
         man_name.setText(product.man_name);
         model_name.setText(product.model_name);
@@ -59,27 +62,14 @@ public class ModifyProduct extends AppCompatActivity {
                         Integer.valueOf(quantity.getText().toString()) - product.quantity,
                         product.id
                 );
-                Gson gson = new Gson();
-                String json = gson.toJson(new_prod);
-                Log.d(LOG_TAG, json);
-                new HttpRequestTask(
-                        new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                                HttpRequest.PUT,
-                                json,
-                                "Bearer " + access_token),
-                        new HttpRequest.Handler() {
-                            @Override
-                            public void response(HttpResponse response) {
-                                if (response.code == 200) {
+                if (is_product_valid(new_prod)){
+                    wrong_fields.setText("Fields valid");
+                    send_product(new_prod);
+                }
+                else{
+                    wrong_fields.setText("Fields not valid");
+                }
 
-                                } else {
-                                    Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                                }
-                            }
-                        }).execute();
-                Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-                intent.putExtra("tmp", "tmp");
-                startActivity(intent);
             }
         });
 
@@ -99,25 +89,60 @@ public class ModifyProduct extends AppCompatActivity {
 
         mRemove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                new HttpRequestTask(
-                        new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                                HttpRequest.DELETE,
-                                "{}",
-                                "Bearer " + access_token),
-                        new HttpRequest.Handler() {
-                            @Override
-                            public void response(HttpResponse response) {
-                                if (response.code == 200) {
-
-                                } else {
-                                    Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                                }
-                            }
-                        }).execute();
-                Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-                intent.putExtra("tmp", "tmp");
-                startActivity(intent);
+                remove_product();
             }
         });
+    }
+
+    private boolean is_product_valid(Product product){
+        if (product.quantity < 0 || product.price < 0){
+            return false;
+        }
+        return true;
+    }
+
+    private void send_product(Product new_prod){
+        Gson gson = new Gson();
+        String json = gson.toJson(new_prod);
+        Log.d(LOG_TAG, json);
+        new HttpRequestTask(
+                new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
+                        HttpRequest.PUT,
+                        json,
+                        "Bearer " + access_token),
+                new HttpRequest.Handler() {
+                    @Override
+                    public void response(HttpResponse response) {
+                        if (response.code == 200) {
+
+                        } else {
+                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                        }
+                    }
+                }).execute();
+        Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
+        intent.putExtra("tmp", "tmp");
+        startActivity(intent);
+    }
+
+    private void remove_product(){
+        new HttpRequestTask(
+                new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
+                        HttpRequest.DELETE,
+                        "{}",
+                        "Bearer " + access_token),
+                new HttpRequest.Handler() {
+                    @Override
+                    public void response(HttpResponse response) {
+                        if (response.code == 200) {
+
+                        } else {
+                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                        }
+                    }
+                }).execute();
+        Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
+        intent.putExtra("tmp", "tmp");
+        startActivity(intent);
     }
 }

@@ -34,6 +34,5 @@ def create_auth(request):
             print("elo")
         return Response(serialized.data, status=status.HTTP_201_CREATED)
     else:
-        print("elo2")
         return Response(serialized._errors, status=status.HTTP_400_BAD_REQUEST)
 

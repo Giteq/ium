@@ -53,20 +53,14 @@ import static com.google.codelabs.appauth.MainApplication.access_token;
 
 public class MainActivity extends AppCompatActivity {
 
-  private static final String SHARED_PREFERENCES_NAME = "AuthStatePreference";
-  private static final String AUTH_STATE = "AUTH_STATE";
   private static final String USED_INTENT = "USED_INTENT";
   private static final String LOGIN_HINT = "login_hint";
   static String GOOGLE_CLIENT_ID = "276416597205-fdi3s21e6dshg9384c8rgsj1ef28h6rr.apps.googleusercontent.com";
 
   MainApplication mMainApplication;
 
-  // state
-  AuthState mAuthState;
-
   // views
   AppCompatButton mAuthorize;
-  AppCompatButton mSignOut;
   AppCompatButton mOwnAuthorize;
   AppCompatButton mRegister;
 
@@ -82,11 +76,9 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
     mMainApplication = (MainApplication) getApplication();
     mAuthorize = (AppCompatButton) findViewById(R.id.authorize);
-    mSignOut = (AppCompatButton) findViewById(R.id.signOut);
     mOwnAuthorize = (AppCompatButton) findViewById(R.id.own_authorize);
     mRegister = (AppCompatButton) findViewById(R.id.register);
 
-    enablePostAuthorizationFlows();
 
     // wire click listeners
     mAuthorize.setOnClickListener(new AuthorizeListener(this));
@@ -154,18 +146,6 @@ public class MainActivity extends AppCompatActivity {
     registerRestrictionsReceiver();
   }
 
-  private void enablePostAuthorizationFlows() {
-    mAuthState = restoreAuthState();
-    if (mAuthState != null && mAuthState.isAuthorized()) {
-      if (mSignOut.getVisibility() == View.GONE) {
-        mSignOut.setVisibility(View.VISIBLE);
-        mSignOut.setOnClickListener(new SignOutListener(this));
-      }
-    } else {
-      mSignOut.setVisibility(View.GONE);
-    }
-  }
-
   /**
    * Exchanges the code, for the {@link TokenResponse}.
    *
@@ -186,15 +166,12 @@ public class MainActivity extends AppCompatActivity {
           } else {
             if (tokenResponse != null) {
               authState.update(tokenResponse, exception);
-              persistAuthState(authState);
               Log.i(LOG_TAG, String.format("Token Response [ Access Token: %s, ID Token: %s ]", tokenResponse.accessToken, tokenResponse.idToken));
               convertToken(tokenResponse);
             }
           }
         }
       });
-
-
     }
   }
 
@@ -234,34 +211,6 @@ public class MainActivity extends AppCompatActivity {
     Intent intent = new Intent(MainActivity.this, Warehouse_handle.class);
     intent.putExtra("access_token", access_token);
     startActivity(intent);
-  }
-
-  private void persistAuthState(@NonNull AuthState authState) {
-    getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE).edit()
-        .putString(AUTH_STATE, authState.toJsonString())
-        .commit();
-    enablePostAuthorizationFlows();
-  }
-
-  private void clearAuthState() {
-    getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .edit()
-        .remove(AUTH_STATE)
-        .apply();
-  }
-
-  @Nullable
-  private AuthState restoreAuthState() {
-    String jsonString = getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
-        .getString(AUTH_STATE, null);
-    if (!TextUtils.isEmpty(jsonString)) {
-      try {
-        return AuthState.fromJson(jsonString);
-      } catch (JSONException jsonException) {
-        // should never happen
-      }
-    }
-    return null;
   }
 
   /**
@@ -315,16 +264,15 @@ public class MainActivity extends AppCompatActivity {
 
     private final MainActivity mMainActivity;
 
-    public OwnAuthorizeListener(@NonNull MainActivity mainActivity) {
-      mMainActivity = mainActivity;
+      public OwnAuthorizeListener(@NonNull MainActivity mainActivity) {
+        mMainActivity = mainActivity;
+      }
+      @Override
+      public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, Login.class);
+        intent.putExtra("access_token", access_token);
+        startActivity(intent);
     }
-  //http://localhost:8000/authorize?client_id=651462&redirect_uri=http://example.org/&response_type=code&scope=openid email profile&state=123123
-    @Override
-    public void onClick(View view) {
-      Intent intent = new Intent(MainActivity.this, Login.class);
-      intent.putExtra("access_token", access_token);
-      startActivity(intent);
-  }
 
   }
 
@@ -345,33 +293,6 @@ public class MainActivity extends AppCompatActivity {
       startActivity(intent);
     }
 
-  }
-
-  public static class SignOutListener implements Button.OnClickListener {
-
-    private final MainActivity mMainActivity;
-
-    public SignOutListener(@NonNull MainActivity mainActivity) {
-      mMainActivity = mainActivity;
-    }
-
-    @Override
-    public void onClick(View view) {
-      mMainActivity.mAuthState = null;
-      mMainActivity.clearAuthState();
-      mMainActivity.enablePostAuthorizationFlows();
-      new HttpRequestTask(
-              new HttpRequest(OWN_OAUTH_ADDR + "logout/", HttpRequest.GET),
-              new HttpRequest.Handler() {
-                @Override
-                public void response(HttpResponse response) {
-                  if (response.code == 200) {
-                  } else {
-                    Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                  }
-                }
-              }).execute();
-    }
   }
 
   private void getAppRestrictions(){

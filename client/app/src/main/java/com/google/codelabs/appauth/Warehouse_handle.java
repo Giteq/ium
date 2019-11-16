@@ -17,8 +17,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.apptakk.http_request.HttpRequest;
@@ -39,17 +37,6 @@ import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
 
 
-/** * TODO
-
- *
- * - sprawdzic czy za kazdym razem trzeba sie logowac z Google
- * + dodac usuwanie elementow
- * + przerobic serwer tak zeby to on liczyl aktualkny stan
- * - wlasny oaauth provider
- * + sprawdzic czy grupy dzialaja
- * */
-
-
 public class Warehouse_handle extends AppCompatActivity {
 
     private ListView mListView;
@@ -57,6 +44,7 @@ public class Warehouse_handle extends AppCompatActivity {
     Button mListProd;
     Button mAddProd;
     Button submit;
+    Button return_to_main;
     EditText man_name, model_name, quantity, price;
 
     ArrayList<Product> listViewValues;
@@ -66,12 +54,11 @@ public class Warehouse_handle extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_warehouse_handle);
 
-
-
         Bundle bundle = getIntent().getExtras();
 
         mListProd = (Button) findViewById(R.id.list_all_prod);
         submit = (Button) findViewById(R.id.submit);
+        return_to_main = (Button) findViewById(R.id.return_to_main);
         man_name = (EditText)findViewById(R.id.man_name);
         model_name = (EditText)findViewById(R.id.model_name);
         quantity = (EditText)findViewById(R.id.quantity);
@@ -96,6 +83,14 @@ public class Warehouse_handle extends AppCompatActivity {
                 changeAddVisibility(View.INVISIBLE);
                 changeListVisibility(View.VISIBLE);
                 get_all_products();
+            }
+        });
+
+        return_to_main.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(Warehouse_handle.this, MainActivity.class);
+                intent.setAction("from.warehouse_handle");
+                startActivity(intent);
             }
         });
 

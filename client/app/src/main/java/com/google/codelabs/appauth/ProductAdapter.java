@@ -33,19 +33,9 @@ public class ProductAdapter extends ArrayAdapter<Product> {
 
         }
 
-        // Lookup view for data population
-
         TextView man_name = (TextView) convertView.findViewById(R.id.prodManname);
 
-        TextView model_name = (TextView) convertView.findViewById(R.id.prodModelName);
-
-        // Populate the data into the template view using the data object
-
         man_name.setText(product.man_name);
-
-        model_name.setText(product.model_name);
-
-        // Return the completed view to render on screen
 
         return convertView;
 

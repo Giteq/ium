@@ -22,8 +22,8 @@ public class MainApplication extends Application {
   public static final String SERVER_ADDR = "http://192.168.1.11:8001/";
   public static final String OWN_OAUTH_ADDR = "http://192.168.1.11:8000/";
   public static String access_token = "";
-  public static String OWN_CLIENT_ID = "O9uCHE6i96mHXnC7M8ehbRymGyJPTkgKCvhQPTAz";
-  public static String OWN_CLIENT_SECRET = "0amdvcIRcvj8vl0khrPxC5eG80XPvnxNYUHZ8CR2qid4hAxDsyuAHTwGsj0AhPnCb2HUAcuoslziAyrwqG20PdM32oCkowGSOWjBrIPa6W7somA1Uld4vkX13jDqFI4C";
+  public static String OWN_CLIENT_ID = "Bdyp1m2NVOoI4qILQwZ9yuFQeabVl1tKiV79KZFG";
+  public static String OWN_CLIENT_SECRET = "abWTPhEj7DZp00g3FastrYAahASfnP4aL2cvZEA9cU3HpZiKs7usKJ4RDH9Flk5gNBgkhxmtd306h9nSn1CqroN7Rrpz0z4ZWB89nARwWr7oupfil8S23jC24YV63vrX";
 
   @Override
   public void onCreate() {
