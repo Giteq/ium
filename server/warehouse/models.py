@@ -10,3 +10,4 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['man_name']
+

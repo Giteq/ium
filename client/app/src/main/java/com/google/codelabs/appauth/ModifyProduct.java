@@ -1,8 +1,9 @@
 package com.google.codelabs.appauth;
 
+import android.content.ContextWrapper;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +15,15 @@ import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
 import com.google.gson.Gson;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
+import static com.google.codelabs.appauth.MainApplication.is_net_on;
 
 public class ModifyProduct extends AppCompatActivity {
 
@@ -24,6 +31,8 @@ public class ModifyProduct extends AppCompatActivity {
     Button mModify, mPlus, mMinus, mRemove;
     Product product;
     TextView wrong_fields;
+
+    JsonFileReader jsonFileReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +42,7 @@ public class ModifyProduct extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         final String productString = bundle.getString("product");
+        Integer size_of_array = bundle.getInt("sizeOfArray");
         Gson gson = new Gson();
         product = gson.fromJson(productString, Product.class);
 
@@ -62,9 +72,17 @@ public class ModifyProduct extends AppCompatActivity {
                         Integer.valueOf(quantity.getText().toString()) - product.quantity,
                         product.id
                 );
-                if (is_product_valid(new_prod)){
+                if (is_product_valid(new_prod, product)){
                     wrong_fields.setText("Fields valid");
-                    send_product(new_prod);
+                    try {
+                        send_product(new_prod);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else{
                     wrong_fields.setText("Fields not valid");
@@ -89,60 +107,112 @@ public class ModifyProduct extends AppCompatActivity {
 
         mRemove.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                remove_product();
+                try {
+                    remove_product();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+        ContextWrapper c = new ContextWrapper(this);
+        jsonFileReader = new JsonFileReader(c.getFilesDir().getPath());
+
     }
 
-    private boolean is_product_valid(Product product){
-        if (product.quantity < 0 || product.price < 0){
+    private boolean is_product_valid(Product new_product, Product old_product){
+        if ( new_product.price < 0){
             return false;
         }
         return true;
     }
 
-    private void send_product(Product new_prod){
+    private void send_product(final Product new_prod) throws IOException, ClassNotFoundException, JSONException {
         Gson gson = new Gson();
-        String json = gson.toJson(new_prod);
-        Log.d(LOG_TAG, json);
-        new HttpRequestTask(
-                new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                        HttpRequest.PUT,
-                        json,
-                        "Bearer " + access_token),
-                new HttpRequest.Handler() {
-                    @Override
-                    public void response(HttpResponse response) {
-                        if (response.code == 200) {
+        final String s_new_prod_info = gson.toJson(new_prod);
+        final JSONObject new_prod_info = new JSONObject(s_new_prod_info);
+        JSONObject old_prod_info = new JSONObject();
+        try{
+            old_prod_info = jsonFileReader.readJsonObjFromFile(new_prod.man_name);
+        } catch (IOException e ){
+            e.printStackTrace();
+        }
 
-                        } else {
-                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+
+        JSONObject both = new JSONObject();
+        both.put("old_prod_info", old_prod_info.toString());
+        both.put("new_prod_info", s_new_prod_info);
+
+        if (is_net_on){
+            final JSONObject finalOld_prod_info = old_prod_info;
+            new HttpRequestTask(
+                    new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
+                            HttpRequest.PUT,
+                            both.toString(),
+                            "Bearer " + access_token),
+                    new HttpRequest.Handler() {
+                        @Override
+                        public void response(HttpResponse response) {
+                            if (response.code == 200) {
+                                //request successfull -> save to file
+                                write_to_file(new_prod_info, finalOld_prod_info);
+                            } else {
+                                Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                            }
                         }
-                    }
-                }).execute();
+                    }).execute();
+        }
+        else{
+            write_to_file(new_prod_info, old_prod_info);
+        }
         Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-        intent.putExtra("tmp", "tmp");
+        intent.putExtra("Net_stat", is_net_on);
         startActivity(intent);
     }
 
-    private void remove_product(){
-        new HttpRequestTask(
-                new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                        HttpRequest.DELETE,
-                        "{}",
-                        "Bearer " + access_token),
-                new HttpRequest.Handler() {
-                    @Override
-                    public void response(HttpResponse response) {
-                        if (response.code == 200) {
+    private void remove_product() throws JSONException {
+        Gson gson = new Gson();
+        final String prod = gson.toJson(product);
+        final JSONObject prod_info = new JSONObject(prod);
+        if (is_net_on){
+            new HttpRequestTask(
+                    new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
+                            HttpRequest.DELETE,
+                            "{}",
+                            "Bearer " + access_token),
+                    new HttpRequest.Handler() {
+                        @Override
+                        public void response(HttpResponse response) {
+                            if (response.code == 200) {
 
-                        } else {
-                            Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                            } else {
+                                Log.e(LOG_TAG, "Request unsuccessful: " + response);
+                            }
                         }
-                    }
-                }).execute();
+                    }).execute();
+        }
+        else{
+            jsonFileReader.removeFile(prod_info);
+        }
         Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-        intent.putExtra("tmp", "tmp");
+        intent.putExtra("Net_stat", is_net_on);
         startActivity(intent);
     }
+
+    private void write_to_file(JSONObject new_prod, JSONObject old_prod){
+        // Meerge difference in quantity
+        try {
+            new_prod.put("quantity", new_prod.get("quantity"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            jsonFileReader.writeToFile(new_prod);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

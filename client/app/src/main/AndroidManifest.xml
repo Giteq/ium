@@ -3,6 +3,10 @@
     package="com.google.codelabs.appauth">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".MainApplication"
@@ -15,7 +19,13 @@
         <activity android:name=".Login" />
         <activity android:name=".ModifyProduct" />
         <activity android:name=".AddProd" />
-        <activity android:name=".Warehouse_handle" />
+        <activity android:name=".Warehouse_handle">
+            <intent-filter>
+                <action android:name="android.intent.action.net" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

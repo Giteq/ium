@@ -140,8 +140,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 OAUTH2_PROVIDER = {
     'RESOURCE_SERVER_INTROSPECTION_URL': 'http://localhost:8000/o/introspect/',
-    'RESOURCE_SERVER_AUTH_TOKEN': 'lzFigAgUrz31dBUAWnYS0lLHSDlstz',  # OR this but not both:
+    'RESOURCE_SERVER_AUTH_TOKEN': 'faaSThNMIGHJRfzNvVvsXSwiOiL7Ih',  # OR this but not both:
 }
 
 
-ALLOWED_HOSTS = ["192.168.1.11", "localhost"]
+ALLOWED_HOSTS = ["192.168.1.11", "localhost", "10.0.2.2"]

@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     mOwnAuthorize = (AppCompatButton) findViewById(R.id.own_authorize);
     mRegister = (AppCompatButton) findViewById(R.id.register);
 
-
     // wire click listeners
     mAuthorize.setOnClickListener(new AuthorizeListener(this));
     mOwnAuthorize.setOnClickListener(new OwnAuthorizeListener(this));
