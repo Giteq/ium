@@ -10,20 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.apptakk.http_request.HttpRequest;
-import com.apptakk.http_request.HttpRequestTask;
-import com.apptakk.http_request.HttpResponse;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
 
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
-import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
-import static com.google.codelabs.appauth.MainApplication.access_token;
-import static com.google.codelabs.appauth.MainApplication.is_net_on;
 import static com.google.codelabs.appauth.MainApplication.productManager;
 
 public class ModifyProduct extends AppCompatActivity {
@@ -132,7 +125,13 @@ public class ModifyProduct extends AppCompatActivity {
     }
 
     private void remove_product() throws JSONException {
-        productManager.removeProduct(product);
+        try {
+            productManager.removeProduct(product);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
         //intent.putExtra("Net_stat", is_net_on);
         startActivity(intent);

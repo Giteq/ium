@@ -2,6 +2,8 @@ package com.google.codelabs.appauth;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
+
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
@@ -24,16 +26,16 @@ public class ProductManager {
 
     JsonFileReader jsonFileReader;
     Context context;
-    RequestTask requestTask;
+    ListRequestTask requestTask;
 
     public ProductManager(JsonFileReader jsonFileReader, Context context){
         this.jsonFileReader = jsonFileReader;
         this.context = context;
-        this.requestTask = new RequestTask(jsonFileReader);
+        this.requestTask = new ListRequestTask(jsonFileReader);
     }
 
     public boolean get_products() throws IOException, JSONException, ClassNotFoundException {
-        if (is_net_on.isBoo()) {
+        if (is_net_on.isActive()) {
             return listRequestHandle(jsonFileReader, context);
         }
         else {
@@ -43,7 +45,7 @@ public class ProductManager {
     }
 
     public void add_product(JSONObject jsonObject) throws JSONException, IOException {
-        if (is_net_on.isBoo()){
+        if (is_net_on.isActive()){
             new HttpRequestTask(
                     new HttpRequest(SERVER_ADDR + "products/",
                             HttpRequest.POST,
@@ -54,7 +56,10 @@ public class ProductManager {
                         public void response(HttpResponse response) {
                             if (response.code == 200) {
                                 Log.d(LOG_TAG, response.body);
-                            } else {
+                            } else if (response.code == 302){
+                                Toast.makeText(context, response.body, Toast.LENGTH_LONG).show();
+                            }
+                            else {
                                 Log.e(LOG_TAG, "Request unsuccessful: " + response);
                             }
                         }
@@ -64,8 +69,6 @@ public class ProductManager {
             jsonObject.put("id", -1);
             jsonFileReader.writeToFile(jsonObject);
         }
-
-
     }
 
     public void sync_state() throws IOException, JSONException, ClassNotFoundException {
@@ -86,7 +89,7 @@ public class ProductManager {
                         if (response.code == 200) {
                                 //TODO get_all_products();
                         } else if (response.code == 300){
-                            //TODO message box
+                            Toast.makeText(context, response.body, Toast.LENGTH_LONG).show();
                         } else {
                             Log.e(LOG_TAG, "Request unsuccessful: " + response);
                         }
@@ -94,16 +97,34 @@ public class ProductManager {
                 }).execute();
     }
 
-    public void modifyProduct(Product new_prod, Product old_prod) throws JSONException, IOException {
-        Gson gson = new Gson();
-        final String s_new_prod_info = gson.toJson(new_prod);
-        final JSONObject new_prod_info = new JSONObject(s_new_prod_info);
+    public void modifyProduct(final Product new_prod, final Product old_prod) throws JSONException, IOException {
+        final JSONObject new_prod_to_send = new JSONObject();
+        new_prod_to_send.put("man_name", new_prod.man_name);
+        if ((new_prod.quantity != 0)){
+            new_prod_to_send.put("quantity", new_prod.quantity);
+        }
+        if (!new_prod.price.equals(old_prod.price)){
+            new_prod_to_send.put("price", new_prod.price - old_prod.price);
+        }
+        if (!new_prod.model_name.equals(old_prod.model_name)){
+            new_prod_to_send.put("model_name", new_prod.model_name);
+        }
 
-        if (is_net_on.isBoo()){
+        JSONArray backup = null;
+        try {
+            backup = jsonFileReader.readJsonArrayFromBackup();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        final JSONObject to_send = new JSONObject();
+        to_send.put("old", backup);
+        to_send.put("new", new_prod_to_send);
+
+        if (is_net_on.isActive()){
             new HttpRequestTask(
                     new HttpRequest(SERVER_ADDR + "products/" + old_prod.id.toString() + "/",
                             HttpRequest.PUT,
-                            s_new_prod_info,
+                            to_send.toString(),
                             "Bearer " + access_token),
                     new HttpRequest.Handler() {
                         @Override
@@ -111,41 +132,69 @@ public class ProductManager {
                             if (response.code == 200) {
                                 //request successfull -> save to file
                                 try {
-                                    new_prod_info.put("quantity", new_prod_info.get("quantity"));
-                                    jsonFileReader.writeToFile(new_prod_info);
+                                    JSONObject toWrite = new JSONObject();
+                                    toWrite.put("id", new_prod.id);
+                                    toWrite.put("man_name", new_prod.man_name);
+                                    toWrite.put("quantity", new_prod.quantity + old_prod.quantity);
+                                    toWrite.put("model_name", new_prod.model_name);
+                                    toWrite.put("price", new_prod.price);
+                                    jsonFileReader.writeToFile(toWrite);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                            } else {
+                            } else if (response.code == 300){
+                                Toast.makeText(context, response.body, Toast.LENGTH_LONG).show();
+                            }
+                            else {
                                 Log.e(LOG_TAG, "Request unsuccessful: " + response);
                             }
                         }
                     }).execute();
         }
         else{
-            new_prod_info.put("quantity", new_prod_info.get("quantity"));
-            jsonFileReader.writeToFile(new_prod_info);
+            JSONObject toWrite = new JSONObject();
+            toWrite.put("id", new_prod.id);
+            toWrite.put("man_name", new_prod.man_name);
+            toWrite.put("quantity", new_prod.quantity + old_prod.quantity);
+            toWrite.put("model_name", new_prod.model_name);
+            toWrite.put("price", new_prod.price);
+            jsonFileReader.writeToFile(toWrite);
         }
     }
 
-    public void removeProduct(Product product) throws JSONException {
+    public void removeProduct(Product product) throws JSONException, IOException, ClassNotFoundException {
         Gson gson = new Gson();
         final String prod = gson.toJson(product);
         final JSONObject prod_info = new JSONObject(prod);
-        if (is_net_on.isBoo()){
+
+        JSONArray backup = null;
+        try {
+            backup = jsonFileReader.readJsonArrayFromBackup();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        final JSONObject to_send = new JSONObject();
+        to_send.put("old", backup);
+        to_send.put("to_remove", prod_info);
+
+
+        if (is_net_on.isActive()){
             new HttpRequestTask(
                     new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
                             HttpRequest.DELETE,
-                            "{}",
+                            to_send.toString(),
                             "Bearer " + access_token),
                     new HttpRequest.Handler() {
                         @Override
                         public void response(HttpResponse response) {
                             if (response.code == 200) {
 
-                            } else {
+                            } else if (response.code == 300){
+                                Toast.makeText(context, response.body, Toast.LENGTH_LONG).show();
+                            }
+                                else {
                                 Log.e(LOG_TAG, "Request unsuccessful: " + response);
                             }
                         }

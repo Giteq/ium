@@ -8,6 +8,9 @@ class Product(models.Model):
     price = models.IntegerField()
     quantity = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.man_name}({self.id}): {self.quantity}"
+
     class Meta:
         ordering = ['man_name']
 

@@ -117,7 +117,7 @@ public class Warehouse_handle extends AppCompatActivity {
         changeListVisibility(View.INVISIBLE);
 
 
-        if (is_net_on.isBoo()){
+        if (is_net_on.isActive()){
             net_on_off.setText("Turn NET OFF");
         }
         else{
@@ -130,7 +130,7 @@ public class Warehouse_handle extends AppCompatActivity {
         listViewValues = new ArrayList<>();
         Handler handler=new Handler();
         productManager.get_products();
-        if (is_net_on.isBoo()){
+        if (is_net_on.isActive()){
             new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground( final Void ... params ) {
@@ -167,7 +167,7 @@ public class Warehouse_handle extends AppCompatActivity {
     private AdapterView.OnItemClickListener listPairedClickItem = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            
             Product prod = (Product) parent.getAdapter().getItem(position);
             Intent intent = new Intent(Warehouse_handle.this, ModifyProduct.class);
             Gson gson = new Gson();
@@ -210,7 +210,7 @@ public class Warehouse_handle extends AppCompatActivity {
     }
 
     private void net_on_off() {
-        is_net_on.setBoo(!is_net_on.isBoo());
+        is_net_on.setActive(!is_net_on.isActive());
     }
 
 }

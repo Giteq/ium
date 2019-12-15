@@ -14,19 +14,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.apptakk.http_request.HttpRequest;
 import com.apptakk.http_request.HttpRequestTask;
 import com.apptakk.http_request.HttpResponse;
@@ -39,7 +31,6 @@ import net.openid.appauth.AuthorizationService;
 import net.openid.appauth.AuthorizationServiceConfiguration;
 import net.openid.appauth.TokenResponse;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,9 +44,9 @@ import static com.google.codelabs.appauth.MainApplication.OWN_CLIENT_SECRET;
 import static com.google.codelabs.appauth.MainApplication.OWN_OAUTH_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
 import static com.google.codelabs.appauth.MainApplication.is_net_on;
+import static com.google.codelabs.appauth.MainApplication.jsonFileReader;
 import static com.google.codelabs.appauth.MainApplication.net_on_off;
 import static com.google.codelabs.appauth.MainApplication.productManager;
-import static com.google.codelabs.appauth.MainApplication.jsonFileReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,13 +88,13 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onChange() {
         try {
-            if (is_net_on.isBoo()){
+            if (is_net_on.isActive()){
               net_on_off.setText("Turn NET OFF");
             }
             else{
               net_on_off.setText("Turn NET ON");
             }
-          if (is_net_on.isBoo()){
+          if (is_net_on.isActive()){
             productManager.sync_state();
           }
 

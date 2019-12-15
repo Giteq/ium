@@ -1,15 +1,15 @@
 package com.google.codelabs.appauth;
 
 public class NetworkListener {
-    private boolean boo = false;
+    private boolean active = true;
     private ChangeListener listener;
 
-    public boolean isBoo() {
-        return boo;
+    public boolean isActive() {
+        return active;
     }
 
-    public void setBoo(boolean boo) {
-        this.boo = boo;
+    public void setActive(boolean active) {
+        this.active = active;
         if (listener != null) listener.onChange();
     }
 

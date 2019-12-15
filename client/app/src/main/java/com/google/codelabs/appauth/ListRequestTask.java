@@ -14,12 +14,12 @@ import java.io.IOException;
 import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 import static com.google.codelabs.appauth.MainApplication.json_array;
 
-public class RequestTask implements HttpRequest.Handler {
+public class ListRequestTask implements HttpRequest.Handler {
 
     JsonFileReader jsonFileReader;
     boolean isFinish = false;
 
-    public RequestTask(JsonFileReader jsonFileReader){
+    public ListRequestTask(JsonFileReader jsonFileReader){
         this.jsonFileReader = jsonFileReader;
     }
 
@@ -28,14 +28,11 @@ public class RequestTask implements HttpRequest.Handler {
         if (response.code == 200) {
             isFinish = true;
             try {
-                jsonFileReader.backup();
                 json_array = new JSONArray(response.body);
                 jsonFileReader.clearDirectory();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
             for (int i = 0; i < json_array.length(); i++) {
@@ -46,6 +43,15 @@ public class RequestTask implements HttpRequest.Handler {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+            try {
+                jsonFileReader.backup();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         } else {
             Log.e(LOG_TAG, "Request unsuccessful: " + response);

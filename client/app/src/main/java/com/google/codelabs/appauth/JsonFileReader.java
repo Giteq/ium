@@ -170,7 +170,7 @@ public class JsonFileReader {
     }
 
     private String getFilePath(JSONObject object) throws JSONException {
-        return this.file_root_path + "json_objects/" + object.get("id");
+        return this.file_root_path + "json_objects/" + object.get("man_name");
     }
 
 
