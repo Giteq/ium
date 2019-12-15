@@ -33,8 +33,9 @@ class IsManagerOrEmployee(permissions.BasePermission):
 class ProductsList(APIView):
     permission_classes = [IsManagerOrEmployee, permissions.IsAuthenticatedOrReadOnly]
 
-    def get(self, request, format=None):
+    def put(self, request, format=None):
         products = Product.objects.all()
+        print(products)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
 
@@ -61,14 +62,8 @@ class ProductsDetail(APIView):
         product = self._get_product(pk)
         if product is None:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        request_copy = request.data.copy()
-        tmp = json.loads(request_copy['old_prod_info'])
-        tmp_request_copy = {"old_" + key: value for key, value in tmp.items() if key != 'id'}
-        tmp = json.loads(request_copy['new_prod_info'])
-        request_copy = tmp
-        request_copy.update(tmp_request_copy)
-
-        serializer = ProductSerializer(product, data=request_copy)
+        print(request.data)
+        serializer = ProductSerializer(product, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -125,8 +120,8 @@ class SyncView(APIView):
         seriable = dict(new=req_copy["new"], old=req_copy["old"])
         serializer = SyncSerializer(data=seriable)
         if serializer.is_valid():
-            print(json.dumps(serializer.data, indent=4))
-            self._mod_prod_handle(serializer.data)
+            # print(json.dumps(serializer.data, indent=4))
+            # self._mod_prod_handle(serializer.data)
             self._add_prod_handle(serializer.data)
             self._rm_prod_handle(serializer.data)
             return Response(serializer.data)
@@ -142,7 +137,6 @@ class SyncView(APIView):
                 return Response(err, status=HTTP_300_MULTIPLE_CHOICES)
             else:
                 if prod['quantity'] != 0:
-                    print(prod['quantity'])
                     db_prod.quantity = db_prod.quantity + prod['quantity']
                     db_prod.save()
 
@@ -169,7 +163,6 @@ class SyncView(APIView):
         to_remove = [item for item in old_prod_only_keys if item not in new_prod_only_keys]
 
         objects_to_remove = [item for item in req_prods["old"] if item["man_name"] in to_remove]
-        print(to_remove)
         for item in objects_to_remove:
             db_prod = Product.objects.get(man_name=item['man_name'])
             tmp_prod = Product(**item)

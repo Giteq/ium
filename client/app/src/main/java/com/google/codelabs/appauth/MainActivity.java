@@ -3,6 +3,7 @@ package com.google.codelabs.appauth;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.RestrictionsManager;
@@ -42,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,6 +52,10 @@ import static com.google.codelabs.appauth.MainApplication.OWN_CLIENT_ID;
 import static com.google.codelabs.appauth.MainApplication.OWN_CLIENT_SECRET;
 import static com.google.codelabs.appauth.MainApplication.OWN_OAUTH_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
+import static com.google.codelabs.appauth.MainApplication.is_net_on;
+import static com.google.codelabs.appauth.MainApplication.net_on_off;
+import static com.google.codelabs.appauth.MainApplication.productManager;
+import static com.google.codelabs.appauth.MainApplication.jsonFileReader;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +89,33 @@ public class MainActivity extends AppCompatActivity {
     mAuthorize.setOnClickListener(new AuthorizeListener(this));
     mOwnAuthorize.setOnClickListener(new OwnAuthorizeListener(this));
     mRegister.setOnClickListener(new RegisterListener(this));
+    ContextWrapper c = new ContextWrapper(this);
+    jsonFileReader = new JsonFileReader(c.getFilesDir().getPath());
+    productManager = new ProductManager(jsonFileReader, getApplicationContext());
+
+    is_net_on.setListener(new NetworkListener.ChangeListener() {
+      @Override
+      public void onChange() {
+        try {
+            if (is_net_on.isBoo()){
+              net_on_off.setText("Turn NET OFF");
+            }
+            else{
+              net_on_off.setText("Turn NET ON");
+            }
+          if (is_net_on.isBoo()){
+            productManager.sync_state();
+          }
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        } catch (JSONException e) {
+          e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+        }
+      }
+    });
 
     // Retrieve app restrictions and take appropriate action
     getAppRestrictions();

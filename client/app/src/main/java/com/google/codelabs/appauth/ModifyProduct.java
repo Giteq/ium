@@ -24,6 +24,7 @@ import static com.google.codelabs.appauth.MainApplication.LOG_TAG;
 import static com.google.codelabs.appauth.MainApplication.SERVER_ADDR;
 import static com.google.codelabs.appauth.MainApplication.access_token;
 import static com.google.codelabs.appauth.MainApplication.is_net_on;
+import static com.google.codelabs.appauth.MainApplication.productManager;
 
 public class ModifyProduct extends AppCompatActivity {
 
@@ -42,7 +43,6 @@ public class ModifyProduct extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 
         final String productString = bundle.getString("product");
-        Integer size_of_array = bundle.getInt("sizeOfArray");
         Gson gson = new Gson();
         product = gson.fromJson(productString, Product.class);
 
@@ -77,8 +77,6 @@ public class ModifyProduct extends AppCompatActivity {
                     try {
                         send_product(new_prod);
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
                         e.printStackTrace();
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -117,7 +115,6 @@ public class ModifyProduct extends AppCompatActivity {
 
         ContextWrapper c = new ContextWrapper(this);
         jsonFileReader = new JsonFileReader(c.getFilesDir().getPath());
-
     }
 
     private boolean is_product_valid(Product new_product, Product old_product){
@@ -127,92 +124,17 @@ public class ModifyProduct extends AppCompatActivity {
         return true;
     }
 
-    private void send_product(final Product new_prod) throws IOException, ClassNotFoundException, JSONException {
-        Gson gson = new Gson();
-        final String s_new_prod_info = gson.toJson(new_prod);
-        final JSONObject new_prod_info = new JSONObject(s_new_prod_info);
-        JSONObject old_prod_info = new JSONObject();
-        try{
-            old_prod_info = jsonFileReader.readJsonObjFromFile(new_prod.man_name);
-        } catch (IOException e ){
-            e.printStackTrace();
-        }
-
-
-        JSONObject both = new JSONObject();
-        both.put("old_prod_info", old_prod_info.toString());
-        both.put("new_prod_info", s_new_prod_info);
-
-        if (is_net_on){
-            final JSONObject finalOld_prod_info = old_prod_info;
-            new HttpRequestTask(
-                    new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                            HttpRequest.PUT,
-                            both.toString(),
-                            "Bearer " + access_token),
-                    new HttpRequest.Handler() {
-                        @Override
-                        public void response(HttpResponse response) {
-                            if (response.code == 200) {
-                                //request successfull -> save to file
-                                write_to_file(new_prod_info, finalOld_prod_info);
-                            } else {
-                                Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                            }
-                        }
-                    }).execute();
-        }
-        else{
-            write_to_file(new_prod_info, old_prod_info);
-        }
+    private void send_product(final Product new_prod) throws IOException, JSONException {
+        productManager.modifyProduct(new_prod, product);
         Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-        intent.putExtra("Net_stat", is_net_on);
+        //intent.putExtra("Net_stat", is_net_on);
         startActivity(intent);
     }
 
     private void remove_product() throws JSONException {
-        Gson gson = new Gson();
-        final String prod = gson.toJson(product);
-        final JSONObject prod_info = new JSONObject(prod);
-        if (is_net_on){
-            new HttpRequestTask(
-                    new HttpRequest(SERVER_ADDR + "products/" + product.id.toString() + "/",
-                            HttpRequest.DELETE,
-                            "{}",
-                            "Bearer " + access_token),
-                    new HttpRequest.Handler() {
-                        @Override
-                        public void response(HttpResponse response) {
-                            if (response.code == 200) {
-
-                            } else {
-                                Log.e(LOG_TAG, "Request unsuccessful: " + response);
-                            }
-                        }
-                    }).execute();
-        }
-        else{
-            jsonFileReader.removeFile(prod_info);
-        }
+        productManager.removeProduct(product);
         Intent intent = new Intent(ModifyProduct.this, Warehouse_handle.class);
-        intent.putExtra("Net_stat", is_net_on);
+        //intent.putExtra("Net_stat", is_net_on);
         startActivity(intent);
     }
-
-    private void write_to_file(JSONObject new_prod, JSONObject old_prod){
-        // Meerge difference in quantity
-        try {
-            new_prod.put("quantity", new_prod.get("quantity"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            jsonFileReader.writeToFile(new_prod);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
