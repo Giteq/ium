@@ -1,0 +1,9 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.google.codelabs.appauth",
+    "sha256_cert_fingerprints":
+    ["CE:EE:18:D5:41:A4:67:50:B6:60:4D:BF:93:27:81:D4:D3:73:63:55:5E:06:76:E7:26:90:C4:4B:BE:F7:D7:EC"]
+  }
+}]

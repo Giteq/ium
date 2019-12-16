@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ModifyProduct">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/modifyManNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Manufacurer \nname" />
+
+        <EditText
+            android:id="@+id/modifyManName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="40dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/modifyModelNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="100dp"
+            android:gravity="center"
+            android:text="Model name" />
+
+        <EditText
+            android:id="@+id/modifyModelName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="100dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/modifyPriceText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="160dp"
+            android:gravity="center"
+            android:text="Price" />
+
+        <EditText
+            android:id="@+id/modifyPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="160dp"
+            android:gravity="center"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/modifyQuantityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="230dp"
+            android:gravity="center"
+            android:text="Quantity" />
+
+        <EditText
+            android:id="@+id/modifyQuantity"
+            android:layout_width="159dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="220dp"
+            android:focusable="false"
+            android:gravity="center"
+            android:inputType="none" />
+
+        <Button
+            android:id="@+id/modifyPlus"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="285dp"
+            android:layout_marginTop="220dp"
+            android:text="+" />
+
+        <Button
+            android:id="@+id/modifyMinus"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="220dp"
+            android:text="-" />
+
+        <Button
+            android:id="@+id/modifyModify"
+            android:layout_width="537dp"
+            android:layout_height="71dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="340dp"
+            android:text="Modify"/>
+
+        <Button
+            android:id="@+id/modifyRemove"
+            android:layout_width="537dp"
+            android:layout_height="71dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="410dp"
+            android:text="Remove"/>
+
+        <TextView
+            android:id="@+id/wrong_fields"
+            android:layout_width="400dp"
+            android:layout_height="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="500dp"
+            android:gravity="center" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

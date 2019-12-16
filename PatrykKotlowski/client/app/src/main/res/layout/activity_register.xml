@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".register">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+
+        <EditText
+            android:id="@+id/reg_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="260dp"
+            android:gravity="center"
+            android:inputType="text"
+            android:hint="Login" />
+
+        <EditText
+            android:id="@+id/reg_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:hint="Password" />
+
+        <EditText
+            android:id="@+id/sec_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="400dp"
+            android:gravity="center"
+            android:inputType="textPassword"
+            android:hint="Retype password" />
+
+        <Button
+            android:id="@+id/register_submit"
+            android:layout_width="537dp"
+            android:layout_height="71dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="500dp"
+            android:text="Submit" />
+
+        <TextView
+            android:id="@+id/wrong_pass_textview"
+            android:layout_width="537dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="450dp"
+            android:text="Passwords aren't the same!"
+            android:gravity="center"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

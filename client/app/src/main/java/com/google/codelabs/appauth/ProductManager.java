@@ -75,8 +75,42 @@ public class ProductManager {
         JSONArray new_prods = jsonFileReader.readJsonArrayFromFiles();
         JSONArray backup = jsonFileReader.readJsonArrayFromBackup();
         JSONObject to_send = new JSONObject();
+        Integer new_quantity, old_quantity, new_price, old_price;
         to_send.put("old", backup);
-        to_send.put("new", new_prods);
+        JSONArray diffs = new JSONArray();
+
+        for (int i=0; i<new_prods.length(); i++) {
+            for (int j=0; j<backup.length(); j++){
+                if (new_prods.getJSONObject(i).get("man_name").equals(
+                        backup.getJSONObject(j).get("man_name"))){
+                    JSONObject jsonObject = new JSONObject();
+
+                    new_quantity = (Integer) new_prods.getJSONObject(i).get("quantity");
+                    old_quantity = (Integer) backup.getJSONObject(j).get("quantity");
+                    if (!new_quantity.equals(old_quantity)){
+                        jsonObject.put("quantity",
+                                new_quantity - old_quantity);
+                    }
+                    new_price = (Integer) new_prods.getJSONObject(i).get("price");
+                    old_price = (Integer) backup.getJSONObject(j).get("price");
+                    if (!new_price.equals(old_price)){
+                        JSONObject price = new JSONObject();
+                        Long tsLong = System.currentTimeMillis()/1000;
+                        String ts = tsLong.toString();
+                        price.put("value", new_price);
+                        price.put("ts", ts);
+                        jsonObject.put("price", price);
+                    }
+                    jsonObject.put("id",  backup.getJSONObject(j).get("id"));
+                    jsonObject.put("man_name",  backup.getJSONObject(j).get("man_name"));
+                    diffs.put(jsonObject);
+
+                    break;
+                }
+
+            }
+        }
+        to_send.put("new", diffs);
 
         new HttpRequestTask(
                 new HttpRequest(SERVER_ADDR + "sync/",
@@ -104,7 +138,12 @@ public class ProductManager {
             new_prod_to_send.put("quantity", new_prod.quantity);
         }
         if (!new_prod.price.equals(old_prod.price)){
-            new_prod_to_send.put("price", new_prod.price - old_prod.price);
+            JSONObject price = new JSONObject();
+            Long tsLong = System.currentTimeMillis()/1000;
+            String ts = tsLong.toString();
+            price.put("value", new_prod.price);
+            price.put("ts", ts);
+            new_prod_to_send.put("price", price);
         }
         if (!new_prod.model_name.equals(old_prod.model_name)){
             new_prod_to_send.put("model_name", new_prod.model_name);

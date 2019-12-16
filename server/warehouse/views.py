@@ -2,6 +2,7 @@ import datetime
 
 import django
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Sum
 from oauth2_provider.models import AccessToken
 from rest_framework import status, permissions
 from rest_framework.response import Response
@@ -21,7 +22,7 @@ def _is_products_same(prod1, prod2):
             prod1.man_name == prod2.man_name,
             prod1.model_name == prod2.model_name,
             prod1.price == prod2.price,
-            prod1.quantity == prod2.quantity
+            ProductsDetail._get_quantity(prod1.man_name) == ProductsDetail._get_quantity(prod2.man_name)
          )
     )
 
@@ -51,8 +52,9 @@ class ProductsList(APIView):
 
     def put(self, request, format=None):
         products = Product.objects.all()
-        print(products)
         serializer = ProductSerializer(products, many=True)
+        for ser_data in serializer.data:
+            ser_data['quantity'] = ProductsDetail._get_quantity(ser_data['man_name'])
         return Response(serializer.data)
 
     def post(self, request):
@@ -62,6 +64,12 @@ class ProductsList(APIView):
             try:
                 Product.objects.get(man_name=serializer.validated_data['man_name'])
             except Product.DoesNotExist:
+                product_diff = ProductDiff(
+                    user_name=request.user.username,
+                    man_name=request.data['man_name'],
+                    diff=request.data['quantity']
+                )
+                product_diff.save()
                 serializer.save()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response({'error': 'Product already exists'}, status=status.HTTP_302_FOUND)
@@ -91,21 +99,21 @@ class ProductsDetail(APIView):
                 break
         error_fields = []
         for atr in changes:
-            if self._can_modify(atr, product, old):
-                if atr =='quantity':
-                    product.quantity = old['quantity'] + changes['quantity']
-                    if old['quantity'] + changes['quantity'] < 0:
-                        return _end(f'Quantity cannot be less than 0.')
-                if atr == 'price':
-                    product.price = old['price'] + changes['price']
-                if atr == 'model_name':
-                    product.model_name = changes['model_name']
-            else:
-                error_fields.append(atr)
-        if error_fields:
-            return _end(f'Someone has modified "{error_fields}". You should sync with server')
-        else:
-            product.save()
+            if atr =='quantity':
+                product_diff = ProductDiff.objects.get(user_name=request.user.username, man_name=changes['man_name'])
+                if self._get_quantity(changes['man_name']) + changes['quantity'] >= 0:
+                    product_diff.diff += changes['quantity']
+                    product_diff.save()
+                else:
+                    return _end(f'Quantity cannot be less than 0.')
+            if atr == 'price':
+                ts = float(changes['price']['ts'])
+                if ts > product.price_ts:
+                    product.price = changes['price']['value']
+                    product.price_ts = ts
+                    product.save()
+            if atr == 'model_name':
+                product.model_name = changes['model_name']
 
         return Response({}, status=status.HTTP_200_OK)
 
@@ -121,12 +129,15 @@ class ProductsDetail(APIView):
                 old = prod
                 break
         error_fields = []
+        del(changes['quantity'])
+        del(old['quantity'])
         for atr in changes:
             if not self._can_modify(atr, product, old):
                 error_fields.append(atr)
         if error_fields:
             return _end(f'Someone has modified "{error_fields}". You should sync with server')
         else:
+            ProductDiff.objects.filter(user_name=request.user.username, man_name=changes['man_name']).delete()
             product.delete()
 
         return Response({}, status=status.HTTP_200_OK)
@@ -143,6 +154,9 @@ class ProductsDetail(APIView):
         else:
             return False
 
+    @staticmethod
+    def _get_quantity(man_name):
+        return ProductDiff.objects.filter(man_name=man_name).aggregate(Sum('diff'))['diff__sum']
 
 class AuthView(APIView):
 
@@ -177,64 +191,43 @@ class SyncView(APIView):
 
     def put(self, request, format=None):
         req_copy = request.data.copy()
-        seriable = dict(new=req_copy["new"], old=req_copy["old"])
-        serializer = SyncSerializer(data=seriable)
-        if serializer.is_valid():
-            # print(json.dumps(serializer.data, indent=4))
-            err = self._add_prod_handle(serializer.data)
-            if err is not None:
-                return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
-            err = self._rm_prod_handle(serializer.data)
-            if err is not None:
-                return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
-            err = self._mod_prod_handle(serializer.data)
-            if err is not None:
-                return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        err = self._add_prod_handle(request.data)
+        if err is not None:
+            return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
+        err = self._rm_prod_handle(request.data)
+        if err is not None:
+            return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
+        err = self._mod_prod_handle(request.data, request.user.username)
+        if err is not None:
+            return Response(err, status=status.HTTP_300_MULTIPLE_CHOICES)
+        return Response({})
 
-    def _mod_prod_handle(self, req_prods):
+    def _mod_prod_handle(self, req_prods, user_name):
         # 0-> new , 1->old
-        for prod in self._match_old_to_new(req_prods):
-            # Check if product is modified
-            if not _is_products_same(Product(**prod[1]), Product(**prod[0])):
-                prod_name = prod[0]["man_name"]
-                try:
-                    db_prod = Product.objects.get(man_name=prod[0]['man_name'])
-                except Product.DoesNotExist:
-                    err = {
-                        'error_msg': f'Product {prod_name} does not exist any more. You should sync with server'
-                    }
-                    print(err)
-                    return err
+        for new in self._match_old_to_new(req_prods):
+            prod_name = new[0]["man_name"]
+            try:
+                db_prod = Product.objects.get(man_name=new[0]['man_name'])
+            except Product.DoesNotExist:
+                return self._end(f'Product {prod_name} does not exist any more. You should sync with server')
 
-                if db_prod.quantity + prod[0]['quantity'] < 0:
-                    err = {
-                        'error_msg': f'Cannot change quantity of {prod_name}. You should sync with server'
-                    }
-                    return err
-                else:
-                    # Check if product is modified.
-                    new_prod = Product(**prod[0])
-                    old_prod = Product(**prod[1])
-                    errs = []
-                    for attr in ("quantity", "price"):
-                        # Check if attribute was changed
-                        print(attr, getattr(new_prod, attr), getattr(old_prod, attr))
-                        if getattr(new_prod, attr) != getattr(old_prod, attr):
-                            # Yes, check if actual value is due to database
-                            if getattr(old_prod, attr) == getattr(db_prod, attr):
-                                # Yes
-                                setattr(db_prod, attr, getattr(new_prod, attr))
-                            else:
-                                errs.append(attr)
-                    if errs:
-                        err = {
-                            'error_msg': f'Cannot make changes in {errs} for product {new_prod.man_name}. You should sync with server'
-                        }
-                        print(err)
-                        return err
+            else:
+                # Check if product is modified.
+                news = new[0]
+                if 'quantity' in news:
+                    product_diff = ProductDiff.objects.get(user_name=user_name,
+                                                           man_name=news['man_name'])
+                    if ProductsDetail._get_quantity(news['man_name']) + news['quantity'] >= 0:
+                        product_diff.diff += news['quantity']
+                        product_diff.save()
                     else:
+                        return self._end(f'Quantity cannot be less than 0.')
+
+                if 'price' in news:
+                    ts = float(news['price']['ts'])
+                    if ts > db_prod.price_ts:
+                        db_prod.price = news['price']['value']
+                        db_prod.price_ts = ts
                         db_prod.save()
 
     def _match_old_to_new(self, req_prods):
@@ -255,11 +248,7 @@ class SyncView(APIView):
                     new_prod = Product(**prod)
                     new_prod.save()
                 else:
-                    err = {
-                        'error_msg': f'Someone has also added "{prod["man_name"]}". You should sync with server'
-                    }
-                    print(err)
-                    return err
+                    return self._end(f'Someone has also added "{prod["man_name"]}". You should sync with server')
 
     def _rm_prod_handle(self, req_prods):
         # for diff in list(dictdiffer.diff(req_prods["old"], req_prods["new"])):
@@ -270,13 +259,18 @@ class SyncView(APIView):
         objects_to_remove = [item for item in req_prods["old"] if item["man_name"] in to_remove]
         for item in objects_to_remove:
             db_prod = Product.objects.get(man_name=item['man_name'])
+            del(item['quantity'])
             tmp_prod = Product(**item)
+            print(item, db_prod.man_name)
             if _is_products_same(tmp_prod, db_prod):
                 db_prod.delete()
 
             else:
-                err = {
-                    'error_msg': f'Someone has modified "{db_prod.man_name}". You should sync with server'
-                }
-                print(err)
-                return err
+                return self._end(f'Someone has modified "{db_prod.man_name}". You should sync with server')
+
+    def _end(self, msg):
+        err = {
+            'error_msg': msg
+        }
+        print(err)
+        return err

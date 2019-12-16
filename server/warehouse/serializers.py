@@ -1,12 +1,11 @@
 from rest_framework import serializers
-from warehouse.models import Product
+from warehouse.models import Product, ProductDiff
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
     man_name = serializers.CharField(required=True, allow_blank=True, max_length=100)
     model_name = serializers.CharField(required=True, allow_blank=True, max_length=100)
     price = serializers.IntegerField()
-    quantity = serializers.IntegerField()
     id = serializers.IntegerField(required=False)
 
     def create(self, validated_data):
@@ -24,15 +23,12 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         instance.price = validated_data.get('price', instance.price)
         if instance.price <= 0:
             raise serializers.ValidationError("Price must be larger than 0")
-        instance.quantity += validated_data.get('quantity', instance.quantity)
-        if instance.quantity < 0:
-            instance.quantity = 0
         instance.save()
         return instance
 
     class Meta:
         model = Product
-        fields = ('id', 'man_name', 'model_name', 'price', 'quantity')
+        fields = ('id', 'man_name', 'model_name', 'price')
 
 
 class SyncSerializer(serializers.Serializer):
