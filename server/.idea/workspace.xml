@@ -2,27 +2,238 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8976111e-72c0-4ee8-b3dc-4479b89713a2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../client/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../client/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/tests.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/auth_fb/views.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/db.drawio" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/manage.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/warehouse/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/warehouse/settings.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/warehouse/urls.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../serwer/warehouse/wsgi.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski.7z" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski.7z" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/androidTest/java/com/google/codelabs/appauth/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/androidTest/java/com/google/codelabs/appauth/ApplicationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/JsonFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/JsonFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ListRequestTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ListRequestTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ModifyProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ModifyProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/NetworkListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/NetworkListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ProductAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Warehouse_handle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/java/com/google/codelabs/appauth/Warehouse_handle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/drawable/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/drawable/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_modify_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_modify_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_warehouse_handle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/activity_warehouse_handle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/item_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/layout/item_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-hdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-hdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-mdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-mdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxxhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxxhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values-w820dp/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values-w820dp/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/xml/app_restrictions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/main/res/xml/app_restrictions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/test/java/com/google/codelabs/appauth/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/app/src/test/java/com/google/codelabs/appauth/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/assetlinks.json" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/assetlinks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/client/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/client/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/oauth_provider.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/oauth_provider.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/provider/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/oidc_provider_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/oidc_provider_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/django_registration/registration_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/django_registration/registration_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/oidc_provider/authorize.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/oidc_provider/authorize.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/oidc_provider/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/oidc_provider/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/oauth_provider/server/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/client.json" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/client.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/credentials.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/server/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/server/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/custom_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/custom_permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0002_delete_customuser.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0002_delete_customuser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0003_fullproductinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0003_fullproductinfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0004_auto_20191213_1024.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0004_auto_20191213_1024.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0005_auto_20191213_1036.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0005_auto_20191213_1036.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0006_auto_20191213_1045.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/0006_auto_20191213_1045.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../PatrykKotlowski/server/warehouse/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/runConfigurations.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/runConfigurations.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/proguard-rules.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/proguard-rules.pro" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/androidTest/java/com/google/codelabs/appauth/ApplicationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/androidTest/java/com/google/codelabs/appauth/ApplicationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/JsonFileReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/JsonFileReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ListRequestTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ListRequestTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ModifyProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ModifyProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/NetworkListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/NetworkListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ProductAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Warehouse_handle.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/java/com/google/codelabs/appauth/Warehouse_handle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/drawable/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/drawable/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_login.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_modify_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_modify_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_warehouse_handle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/activity_warehouse_handle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/layout/item_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/layout/item_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-hdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-hdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-mdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-mdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxxhdpi/ic_account_circle_black_48dp.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxxhdpi/ic_account_circle_black_48dp.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values-w820dp/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values-w820dp/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values/colors.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values/dimens.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values/dimens.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values/styles.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values/styles.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/values/values.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/values/values.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/main/res/xml/app_restrictions.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/main/res/xml/app_restrictions.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/app/src/test/java/com/google/codelabs/appauth/ExampleUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../client/app/src/test/java/com/google/codelabs/appauth/ExampleUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/assetlinks.json" beforeDir="false" afterPath="$PROJECT_DIR$/../client/assetlinks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../client/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../client/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/../client/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../client/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/gradlew" beforeDir="false" afterPath="$PROJECT_DIR$/../client/gradlew" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/gradlew.bat" beforeDir="false" afterPath="$PROJECT_DIR$/../client/gradlew.bat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../client/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/oauth_provider.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/oauth_provider.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/provider/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/provider/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/oidc_provider_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/oidc_provider_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/django_registration/registration_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/django_registration/registration_form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/oidc_provider/authorize.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/oidc_provider/authorize.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/oidc_provider/error.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/oidc_provider/error.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/templates/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/templates/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../oauth_provider/server/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/../oauth_provider/server/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.json" beforeDir="false" afterPath="$PROJECT_DIR$/client.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/credentials.json" beforeDir="false" afterPath="$PROJECT_DIR$/credentials.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manage.py" beforeDir="false" afterPath="$PROJECT_DIR$/manage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/server/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/custom_permissions.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/custom_permissions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0001_initial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0002_delete_customuser.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0002_delete_customuser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0003_fullproductinfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0003_fullproductinfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0004_auto_20191213_1024.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0004_auto_20191213_1024.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0005_auto_20191213_1036.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0005_auto_20191213_1036.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0006_auto_20191213_1045.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0006_auto_20191213_1045.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0007_auto_20191216_1639.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0007_auto_20191216_1639.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0008_auto_20191216_1643.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0008_auto_20191216_1643.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0009_productdiff.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0009_productdiff.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/0010_remove_product_quantity.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/0010_remove_product_quantity.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/migrations/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/warehouse/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/warehouse/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +255,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../ium/oauth_provider" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">

@@ -159,7 +159,7 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-ALLOWED_HOSTS = ["192.168.1.11", "localhost"]
+ALLOWED_HOSTS = ["192.168.1.11", "localhost", '10.0.2.2']
 
 # LOGIN_REDIRECT_URL = '/'
 
